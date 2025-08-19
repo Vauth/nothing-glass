@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nothing Glass Creator</title>
+    
+    <!-- SEO & Social Sharing Meta Tags -->
+    <meta name="description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <meta name="keywords" content="wallpaper creator, glass effect, nothing os, background, custom wallpaper, image filter" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Glass Effect Wallpaper Creator" />
+    <meta property="og:description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Glass Effect Wallpaper Creator" />
+    <meta property="twitter:description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
+    
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="antialiased">
+    <header class="text-center py-5 border-b border-gray-800 bg-[#1e1e1e]/50">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-100">
+            Nothing Glass Effect Creator
+        </h1>
+    </header>
+    <main class="flex-grow w-full max-w-7xl mx-auto p-4 md:p-8">
+        <div class="grid lg:grid-cols-3 gap-8 h-full">
+            <!-- CONTROLS PANEL -->
+            <div class="lg:col-span-1 panel-card p-6 rounded-2xl shadow-lg flex flex-col h-full">
+                <h3 class="font-bold text-xl mb-6 text-gray-200">Controls</h3>
+                <div class="space-y-8">
+                    <div>
+                        <label class="block mb-3 text-sm font-medium text-gray-400">1. Upload Image</label>
+                        <div class="flex items-center">
+                            <div class="file-input-wrapper">
+                                <div class="file-input-button">Choose File</div>
+                                <input type="file" id="image-upload" accept="image/*" />
+                            </div>
+                            <span id="file-name-display" class="file-name">No file chosen</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="blur-slider" class="flex justify-between text-sm font-medium text-gray-400">
+                            Blur Radius <span id="blur-value" class="text-gray-200 font-semibold">1</span>
+                        </label>
+                        <input id="blur-slider" type="range" min="0" max="20" value="1" step="0.5" class="w-full mt-2" />
+                    </div>
+                    <div>
+                        <label for="width-slider" class="flex justify-between text-sm font-medium text-gray-400">
+                            Reed Width <span id="width-value" class="text-gray-200 font-semibold">40</span>
+                        </label>
+                        <input id="width-slider" type="range" min="10" max="100" value="40" step="1" class="w-full mt-2" />
+                    </div>
+                    <div>
+                        <label for="amplitude-slider" class="flex justify-between text-sm font-medium text-gray-400">
+                            Distortion <span id="amplitude-value" class="text-gray-200 font-semibold">50</span>
+                        </label>
+                        <input id="amplitude-slider" type="range" min="0" max="50" value="50" step="1" class="w-full mt-2" />
+                    </div>
+                </div>
+                <div class="mt-auto pt-6 text-center">
+                    <button id="download-btn" class="w-full bg-green-500 text-black font-bold py-3 px-4 rounded-lg shadow-md transition-all duration-200 ease-in-out hover:bg-green-400 disabled:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50" disabled>
+                        Download Wallpaper
+                    </button>
+                </div>
+            </div>
+            <!-- CANVAS & OUTPUT -->
+            <div class="lg:col-span-2 panel-card p-4 rounded-2xl shadow-lg flex items-center justify-center flex-grow min-h-[400px] lg:min-h-0">
+                <div id="canvas-container" class="w-full h-full relative flex items-center justify-center">
+                    <canvas id="image-canvas" class="max-w-full max-h-full object-contain rounded-lg shadow-inner"></canvas>
+                    <div id="loader" class="loader absolute top-1/2 left-1/2 -mt-5 -ml-5 hidden"></div>
+                    <div id="upload-prompt-container" class="absolute inset-0 flex items-center justify-center p-8">
+                        <p id="upload-prompt" class="text-gray-500 text-center">
+                            Upload an image to begin creating your glass effect wallpaper.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>
