@@ -37,19 +37,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /**
-     * Draws an image to the preview canvas, scaling it to fit its container.
+     * Draws an image to the preview canvas, scaling it to fit its container safely.
      */
     function drawPreviewImage(img) {
         const container = canvas.parentElement;
-        const containerRatio = container.clientWidth / container.clientHeight;
+        canvas.style.display = 'none';
+        const styles = window.getComputedStyle(container);
+        const paddingX = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+        const paddingY = parseFloat(styles.paddingTop) + parseFloat(styles.paddingBottom);
+
+        const availableWidth = container.clientWidth - paddingX;
+        const availableHeight = container.clientHeight - paddingY;
+        canvas.style.display = '';
+
+        const containerRatio = availableWidth / availableHeight;
         const imgRatio = img.width / img.height;
         let drawWidth, drawHeight;
 
         if (containerRatio > imgRatio) {
-            drawHeight = container.clientHeight;
+            drawHeight = availableHeight;
             drawWidth = drawHeight * imgRatio;
         } else {
-            drawWidth = container.clientWidth;
+            drawWidth = availableWidth;
             drawHeight = drawWidth / imgRatio;
         }
         
