@@ -3,98 +3,125 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nothing Glass Creator</title>
-    
-    <!-- SEO & Social Sharing Meta Tags -->
+    <title>Nothing Glass</title>
+    <meta name="description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
+
     <meta name="description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
     <link rel="icon" type="image/png" href="./favicon.png" />
     <meta name="keywords" content="wallpaper creator, glass effect, nothing os, background, custom wallpaper, image filter" />
     
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Glass Effect Wallpaper Creator" />
     <meta property="og:description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
     
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:title" content="Glass Effect Wallpaper Creator" />
     <meta property="twitter:description" content="Create stunning, Nothing OS-inspired glass effect wallpapers. Upload your image, adjust the blur and distortion, and download your unique creation." />
     
-    <!-- TailwindCSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
     
-    <!-- Custom Styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css" />
 </head>
-<body class="antialiased">
-    <header class="text-center py-5 border-b border-gray-800 bg-[#1e1e1e]/50">
-        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-gray-100">
-            Nothing Glass Effect Creator
-        </h1>
+<body class="min-h-[100dvh] lg:h-[100dvh] flex flex-col p-3 sm:p-4 lg:p-6 overflow-x-hidden overflow-y-auto lg:overflow-hidden">
+
+    <header class="flex justify-between items-center mb-4 lg:mb-6 w-full max-w-[1400px] mx-auto shrink-0">
+        <div class="flex items-center gap-3 lg:gap-4">
+            <div class="w-2.5 h-2.5 lg:w-3 lg:h-3 bg-[#ce1126] rounded-full animate-pulse"></div>
+            <h1 class="ndot text-lg sm:text-xl lg:text-3xl tracking-widest text-white">NOTHING GLASS</h1>
+        </div>
     </header>
-    <main class="flex-grow w-full max-w-7xl mx-auto p-4 md:p-8">
-        <div class="grid lg:grid-cols-3 gap-8 h-full">
-            <!-- CONTROLS PANEL -->
-            <div class="lg:col-span-1 panel-card p-6 rounded-2xl shadow-lg flex flex-col h-full">
-                <h3 class="font-bold text-xl mb-6 text-gray-200">Controls</h3>
-                <div class="space-y-8">
-                    <div>
-                        <label class="block mb-3 text-sm font-medium text-gray-400">1. Upload Image</label>
-                        <div class="flex items-center">
-                            <div class="file-input-wrapper">
-                                <div class="file-input-button">Choose File</div>
-                                <input type="file" id="image-upload" accept="image/*" />
-                            </div>
-                            <span id="file-name-display" class="file-name">No file chosen</span>
-                        </div>
+
+    <main class="flex-grow flex flex-col lg:flex-row gap-4 lg:gap-8 w-full max-w-[1400px] mx-auto min-h-0">
+        
+        <div class="flex-1 flex flex-col gap-4 lg:gap-6 min-h-0">
+            
+            <div class="widget rounded-[2rem] lg:rounded-[3.5rem] relative flex-1 min-h-[35vh] lg:min-h-0 lg:h-full flex items-center justify-center p-3 lg:p-4 shadow-2xl overflow-hidden group">
+                <canvas id="image-canvas" class="max-w-full max-h-full rounded-[1rem] lg:rounded-[1.5rem] object-contain transition-opacity duration-300"></canvas>
+                
+                <div id="upload-prompt-container" class="absolute inset-0 flex flex-col items-center justify-center gap-4 lg:gap-6 text-gray-500 bg-[#121212]">
+                    <div class="w-16 h-16 lg:w-20 lg:h-20 border border-dashed border-[#444] rounded-full flex items-center justify-center text-2xl lg:text-3xl font-light">
+                        +
                     </div>
-                    <div>
-                        <label for="blur-slider" class="flex justify-between text-sm font-medium text-gray-400">
-                            Blur Radius <span id="blur-value" class="text-gray-200 font-semibold">1</span>
-                        </label>
-                        <input id="blur-slider" type="range" min="0" max="20" value="2" step="0.5" class="w-full mt-2" />
-                    </div>
-                    <div>
-                        <label for="width-slider" class="flex justify-between text-sm font-medium text-gray-400">
-                            Reed Width <span id="width-value" class="text-gray-200 font-semibold">40</span>
-                        </label>
-                        <input id="width-slider" type="range" min="10" max="100" value="40" step="1" class="w-full mt-2" />
-                    </div>
-                    <div>
-                        <label for="amplitude-slider" class="flex justify-between text-sm font-medium text-gray-400">
-                            Distortion <span id="amplitude-value" class="text-gray-200 font-semibold">50</span>
-                        </label>
-                        <input id="amplitude-slider" type="range" min="0" max="100" value="50" step="1" class="w-full mt-2" />
-                    </div>
-                    <div>
-                        <label for="lighting-slider" class="flex justify-between text-sm font-medium text-gray-400">
-                            3D Lighting <span id="lighting-value" class="text-gray-200 font-semibold">15</span>
-                        </label>
-                        <input id="lighting-slider" type="range" min="0" max="50" value="15" step="1" class="w-full mt-2" />
-                    </div>
+                    <span class="ndot text-sm sm:text-base lg:text-xl tracking-[0.1em] lg:tracking-[0.2em] text-[#666] text-center px-4">AWAITING IMAGE</span>
                 </div>
-                <div class="mt-auto pt-6 text-center">
-                    <button id="download-btn" class="w-full bg-green-500 text-black font-bold py-3 px-4 rounded-lg shadow-md transition-all duration-200 ease-in-out hover:bg-green-400 disabled:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50" disabled>
-                        Download Wallpaper
-                    </button>
+
+                <div id="loader" class="absolute inset-0 bg-[#000000]/80 hidden flex-col items-center justify-center z-10 backdrop-blur-sm">
+                    <div class="w-5 h-5 lg:w-6 lg:h-6 bg-[#ce1126] rounded-full animate-nothing-pulse mb-4 lg:mb-6"></div>
+                    <span class="ndot text-white text-base lg:text-lg tracking-[0.2em]">PROCESSING...</span>
                 </div>
             </div>
-            <!-- CANVAS & OUTPUT -->
-            <div class="lg:col-span-2 panel-card p-4 rounded-2xl shadow-lg flex items-center justify-center flex-grow min-h-[400px] lg:min-h-0">
-                <div id="canvas-container" class="w-full h-full relative flex items-center justify-center">
-                    <canvas id="image-canvas" class="max-w-full max-h-full object-contain rounded-lg shadow-inner"></canvas>
-                    <div id="loader" class="loader absolute top-1/2 left-1/2 -mt-5 -ml-5 hidden"></div>
-                    <div id="upload-prompt-container" class="absolute inset-0 flex items-center justify-center p-8">
-                        <p id="upload-prompt" class="text-gray-500 text-center">
-                            Upload an image to begin creating your glass effect wallpaper.
-                        </p>
-                    </div>
-                </div>
+
+            <div class="flex justify-center lg:justify-start gap-3 lg:gap-4 shrink-0">
+                <input type="file" id="image-upload" accept="image/*" class="hidden" />
+                <button onclick="document.getElementById('image-upload').click()" class="w-16 h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28 rounded-full widget border border-dashed border-[#555] hover:border-white text-gray-400 hover:text-white transition-all duration-300 flex flex-col items-center justify-center gap-1 lg:gap-2 group shrink-0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 lg:w-6 lg:h-6 group-hover:-translate-y-1 transition-transform">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <span class="text-[8px] lg:text-xs tracking-widest font-bold">LOAD</span>
+                </button>
+
+                <button id="download-btn" disabled class="w-16 h-16 sm:w-20 sm:h-20 lg:w-28 lg:h-28 rounded-full bg-[#ce1126] text-white disabled:bg-[#1a1a1a] disabled:text-[#444] disabled:border-none border-2 border-[#ce1126] transition-all duration-300 flex flex-col items-center justify-center gap-1 lg:gap-2 hover:bg-transparent hover:text-[#ce1126] disabled:cursor-not-allowed group shrink-0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 lg:w-6 lg:h-6 group-hover:translate-y-1 transition-transform disabled:group-hover:translate-y-0">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span class="text-[8px] lg:text-xs tracking-widest font-bold">SAVE</span>
+                </button>
             </div>
         </div>
+
+        <div class="flex justify-center items-center w-full lg:w-auto shrink-0 pb-2 lg:pb-0 h-full">
+            <div class="flex flex-row gap-2 sm:gap-4 lg:gap-6 overflow-x-auto no-scrollbar w-full max-w-[400px] lg:max-w-none justify-center px-1 py-1">
+                
+                <div class="widget rounded-[2rem] lg:rounded-full w-16 sm:w-[4.5rem] lg:w-24 h-[12rem] sm:h-[13rem] lg:h-[26rem] flex flex-col items-center py-4 lg:py-8 shrink-0 shadow-lg">
+                    <span class="text-[8px] lg:text-xs tracking-widest text-[#888] font-bold">BLUR</span>
+                    <div class="flex-1 w-full relative flex items-center justify-center my-2 lg:my-6">
+                        <input id="blur-slider" type="range" class="nothing-slider absolute w-[90px] sm:w-[100px] lg:w-[220px] h-[28px] m-0 p-0" min="0" max="20" value="2" step="0.5" />
+                    </div>
+                    <span id="blur-value" class="ndot text-base lg:text-2xl text-white">2</span>
+                </div>
+
+                <div class="widget rounded-[2rem] lg:rounded-full w-16 sm:w-[4.5rem] lg:w-24 h-[12rem] sm:h-[13rem] lg:h-[26rem] flex flex-col items-center py-4 lg:py-8 shrink-0 shadow-lg">
+                    <span class="text-[8px] lg:text-xs tracking-widest text-[#888] font-bold">REED</span>
+                    <div class="flex-1 w-full relative flex items-center justify-center my-2 lg:my-6">
+                        <input id="width-slider" type="range" class="nothing-slider absolute w-[90px] sm:w-[100px] lg:w-[220px] h-[28px] m-0 p-0" min="10" max="100" value="40" step="1" />
+                    </div>
+                    <span id="width-value" class="ndot text-base lg:text-2xl text-white">40</span>
+                </div>
+
+                <div class="widget rounded-[2rem] lg:rounded-full w-16 sm:w-[4.5rem] lg:w-24 h-[12rem] sm:h-[13rem] lg:h-[26rem] flex flex-col items-center py-4 lg:py-8 shrink-0 shadow-lg">
+                    <span class="text-[8px] lg:text-xs tracking-widest text-[#888] font-bold">DISTORT</span>
+                    <div class="flex-1 w-full relative flex items-center justify-center my-2 lg:my-6">
+                        <input id="amplitude-slider" type="range" class="nothing-slider absolute w-[90px] sm:w-[100px] lg:w-[220px] h-[28px] m-0 p-0" min="0" max="100" value="50" step="1" />
+                    </div>
+                    <span id="amplitude-value" class="ndot text-base lg:text-2xl text-white">50</span>
+                </div>
+
+                <div class="widget rounded-[2rem] lg:rounded-full w-16 sm:w-[4.5rem] lg:w-24 h-[12rem] sm:h-[13rem] lg:h-[26rem] flex flex-col items-center py-4 lg:py-8 shrink-0 shadow-lg">
+                    <span class="text-[8px] lg:text-xs tracking-widest text-[#ce1126] font-bold">LIGHT</span>
+                    <div class="flex-1 w-full relative flex items-center justify-center my-2 lg:my-6">
+                        <input id="lighting-slider" type="range" class="nothing-slider absolute w-[90px] sm:w-[100px] lg:w-[220px] h-[28px] m-0 p-0" min="0" max="50" value="15" step="1" />
+                    </div>
+                    <span id="lighting-value" class="ndot text-base lg:text-2xl text-[#ce1126]">15</span>
+                </div>
+
+            </div>
+        </div>
+        
     </main>
-    
-    <script src="script.js"></script>
+
+    <footer class="mt-4 lg:mt-6 text-center text-[#444] ndot text-[10px] lg:text-xs tracking-widest w-full max-w-[1400px] mx-auto flex justify-between shrink-0">
+        <span>GITHUB.COM/VAUTH</span>
+        <span>NOTHING</span>
+    </footer>
+
+    <script src="script.js" defer></script>
 </body>
 </html>
